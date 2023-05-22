@@ -226,6 +226,15 @@ class Cache extends Map {
         });
         return this;
     }
+	
+	/**
+	 * Creates an exact replica of the cache.
+	 * @returns {Cache} 
+	 * @example const clone = cache.clone();
+	*/
+	clone() {
+		return new Cache(this);
+	}
 
     /**
      * Does the same thing as Cache.filter, but modifies the original cache. 
