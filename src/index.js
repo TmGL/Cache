@@ -282,6 +282,29 @@ class Cache extends Map {
     static of(...items) {
         return new Cache(items);
     }
+
+    /**
+     * Creates a new cache from the given iterable.
+     * @param {IterableIterator<[any, any]>} entries The iterable to create the cache.
+     * @param {Function} mapFn A function to call on every element of the cache, where the return value is instead added to the cache. There can be 2 parameters: the element and the index.
+     * @returns {Cache} The new cache.
+     * @example Cache.from([['foo', 'bar'], ['hello', 'world']]);
+     */
+    static from(entries, mapFn, thisArg) {
+        if (thisArg) mapFn = mapFn.bind(thisArg);
+        if (mapFn) {
+            const cache = new Cache();
+            let index = 1;
+            for (let x of entries) {
+                const update = mapFn(x, index);
+                if (update !== undefined) {
+                    cache.set(update[0], update[1]);
+                }
+                index++;
+            }
+            return cache;
+        } else return new Cache(entries);
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
