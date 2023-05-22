@@ -218,7 +218,13 @@ class Cache extends Map {
      * @example cache.reverse();
      */
     reverse() {
-        const reversed = new Cache();
+        const reversed = Array.from(this.entries()).reverse();
+		this.clear();
+		for (let x of reversed) {
+			this.set(x[0], x[1]);
+		}
+		return this;
+    }
         const arr = this.array('key').reverse();
         arr.forEach(key => {
             reversed.set(key, this.get(key));
