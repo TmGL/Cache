@@ -225,12 +225,20 @@ class Cache extends Map {
 		}
 		return this;
     }
+
+    /**
+	 * Identical to Cache.reverse(), but does not modify the original cache.
+	 * @returns {Cache} A reversed copy of the cache.
+	 * @example cache.hardReverse();
+	 */
+	toReversed() {
+		const reversed = new Cache();
         const arr = this.array('key').reverse();
         arr.forEach(key => {
             reversed.set(key, this.get(key));
         });
         return reversed;
-    }
+	}
 
     /**
      * Joins the current cache with the others provided, to make a new cache. Does not modify the original cache.
