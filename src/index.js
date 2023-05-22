@@ -382,6 +382,32 @@ class Cache extends Map {
         });
         return cache;
     }
+
+    /**
+     * Changes a portion of the cache by removing or replacing existing elements.
+     * @param {Number} start The position to start changing the cache.
+     * @param {Number} deleteCount How many elements to remove.
+     * @param  {...any[]} items The elements to add to the cache.
+     */
+    splice(start, deleteCount, ...items) {
+        const cache = new Cache();
+        this.forEach((value, key) => {
+            const pos = this.position(key, 'k');
+            if (pos < start) {
+                cache.set(key, value);
+            } else {
+                if (items.length !== 0) {
+                    for (const x of items) {
+                        cache.set(x[0], x[1]);
+                    }
+                }
+                if (pos + items.length > cache.size + deleteCount) {
+                    cache.set(key, value);
+                }
+            }
+        });
+        return cache;
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
