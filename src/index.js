@@ -4,9 +4,10 @@ class Cache extends Map {
     }
 
     /**
-    * Sets the value for the key in the cahce.
-    * @param {*} key 
-    * @returns {Cache} 
+    * Sets a new key in the cache, and assigns a value to it.
+    * @param {*} key The key to add to the cache.
+    * @param {*} value The value of the key.
+    * @returns {Cache} The chache object.
     * @example cache.set('foo', 'bar');
     */
     set(key, value) {
@@ -15,18 +16,18 @@ class Cache extends Map {
 
     /**
     * Removes an element from the cache and returns true if it was removed successfually, or false otherwise. 
-    * @param {*} key
-    * @returns {boolean} returns true if the element was deleted
-    * @param cache.delete('foo');
+    * @param {*} key The key of the element to remove.
+    * @returns {Boolean} Returns true if the element was deleted successfully.
+    * @example cache.delete('foo');
     */
     delete(key) {
         return super.delete(key);
     }
 
     /**
-    * Returns the value from the key, or undefined if it doesn't exist. 
-    * @param {*} key
-    * @returns {*}
+    * Returns the value from the given key, or undefined if it doesn't exist. 
+    * @param {*} key The key of the value to get.
+    * @returns {*} The value of the provided key.
     * @example cache.get('foo');
     */
     get(key) {
@@ -34,11 +35,11 @@ class Cache extends Map {
     }
 
     /**
-    * Returns true if the key exists in the cache, returns false otherwise. 
-    * @param {*} key
-    * @returns {boolean}
-    * @example cache.has('foo');
-    */
+     * Returns true if the specified key exists in the cache, returns false otherwise. 
+     * @param {*} key The key to check for in the cache.
+     * @returns {Boolean} Whether or not the key is present.
+     * @example cache.has('foo');
+     */
     has(key) {
         return super.has(key);
     }
@@ -46,19 +47,20 @@ class Cache extends Map {
     /**
      * Deletes all elements in the cache.
      * @returns {void}
-     * @example cache.clear()
+     * @example cache.clear();
      */
     clear() {
         return super.clear();
     }
 
     /**
-    * Returns the elements of the cache that meet the condition specified in the callback function.
-    * @param {Function} predicate  A function that accepts up to three arguments and should return a boolean. The predicate function is called one time for each element in the cache.
-    * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
-    * @returns {Cache}
-    * @example cache.filter(value => value.includes('foo'));
-    */
+    /**
+     * Returns the elements of the cache that meet the condition specified in the callback function.
+     * @param {Function} predicate  A function that accepts up to three arguments and should return a boolean. The predicate function is called one time for each element in the cache.
+     * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
+     * @returns {Cache}
+     * @example cache.filter(value => value.includes('foo'));
+     */
     filter(predicate, thisArg = undefined) {
         if (thisArg) predicate = predicate.bind(thisArg);
         const filtered = new Cache();
@@ -72,8 +74,8 @@ class Cache extends Map {
      * Determines whether the specified callback function returns true for any element in the cache.
      * @param {Function} predicate A function that accepts up to three argument and should return a boolean. The predicate function is called for each element in the cache until the predicate returns true.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
-     * @returns {boolean} 
-     * @example cache.some(value => value.includes('foo'))
+     * @returns {Boolean} 
+     * @example cache.some(value => value.includes('foo'));
      */
     some(predicate, thisArg = undefined) {
         if (thisArg) predicate = predicate.bind(thisArg);
@@ -88,8 +90,8 @@ class Cache extends Map {
      * Determines whether the specified callback function returns true for all elements in the cache.
      * @param {Function} predicate A function that accepts up to three arguments and should return a boolean. The predicate function is called for each element in the cache until the predicate returns false, or until the end of the cache.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
-     * @returns {boolean}
-     * @example cache.every(value => value.includes('foo'))
+     * @returns {Boolean}
+     * @example cache.every(value => value.includes('foo'));
      */
     every(predicate, thisArg = undefined) {
         if (thisArg) predicate = predicate.bind(thisArg);
@@ -102,11 +104,11 @@ class Cache extends Map {
 
     /**
      * Returns the value of the first element in the cache where the callback function returns true, and undefined otherwise.
-     * @param {string} type A string which shows whether to look for a key or a value in the cache.
      * @param {Function} predicate The predicate function is called for each element of the cache, until it finds one where the predicate returns true. If the element is found, it returns it. Otherwise, it returns undefined.
+     * @param {String} type A string which shows whether to look for a key or a value in the cache.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
      * @returns {*}
-     * @example cache.find('value', value => value.includes('foo'));
+     * @example cache.find(value => value.includes('foo'));
      */
     find(type = "value", predicate, thisArg = undefined) {
         const arr = this.array(type);
@@ -114,11 +116,11 @@ class Cache extends Map {
     }
 
     /**
-     * Returns the position of the first occurance of the provided key or value, or -1 if it isn't found.
-     * @param {string} type A string which shows whether to look for a key or a value in the cache.
-     * @param {*} searchElement The key/value to locate in the cache.
-     * @returns {number}
-     * @example cache.position('value', 'foo')
+     * Returns the position of the provided key or value, or -1 if it isn't found.
+     * @param {String} type A string which shows whether to look for a key or a value in the cache.
+     * @param {*} searchElement The key or value to locate in the cache.
+     * @returns {Number}
+     * @example cache.position('foo', 'value');
      */
     position(type = "value", searchElement) {
         let index = this.array(type).indexOf(searchElement);
@@ -127,8 +129,8 @@ class Cache extends Map {
 
     /**
      * Reverses the elements in the cache in place and returns it. 
-     * @returns {Cache}
-     * @example cache.reverse()
+     * @returns {Cache} Reference to the new cache.
+     * @example cache.reverse();
      */
     reverse() {
         const reversed = new Cache();
@@ -140,10 +142,10 @@ class Cache extends Map {
     }
 
     /**
-     * Joins the current cache with the others provided, to make a new cache.
+     * Joins the current cache with the others provided, to make a new cache. Does not modify the original cache.
      * @param  {...Cache} items Additional caches and/or items to add to the end of the cache.
-     * @returns {Cache} 
-     * @example cache.concat(cache1, array1)
+     * @returns {Cache} The new cache.
+     * @example cache.concat(cache1, [['foo', 'bar']]);
      */
     concat(...items) {
         const joined = new Cache(this);
@@ -158,9 +160,9 @@ class Cache extends Map {
 
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
-    * @param {string} type A string which shows whether to make the array with the cache's keys or values.
+    * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
     * @returns {Array}
-    * @example cache.array('key')
+    * @example cache.array('keys');
     */
     array(type = "value") {
         type = type ? type.toLowerCase() : undefined;
@@ -182,9 +184,9 @@ class Cache extends Map {
 
     /**
     * Returns the first key or value in the cache depending on the argument (default is value), or undefined if the cache is empty.
-    * @param {string} type A string which shows whether to return the first key or value in the cache.
+    * @param {String} type A string which shows whether to return the first key or value in the cache.
     * @returns {*}
-    * @example cache.first('value')
+    * @example cache.first('value');
     */
     first(type = "value") {
         return this.array(type).shift();
@@ -192,9 +194,9 @@ class Cache extends Map {
 
     /**
      * Returns the last key or value in the cache depending on the argument (default is value), or undefined if the cache is empty.
-     * @param {string} type A string which shows whether to return the last key or value in the cache.
+     * @param {String} type A string which shows whether to return the last key or value in the cache.
      * @returns {*}
-     * @example cache.last('value')
+     * @example cache.last('value');
      */
     last(type = "value") {
         return this.array(type).pop();
@@ -202,9 +204,9 @@ class Cache extends Map {
 
     /**
      * Returns a random key or value depending on the argument (default is value) from the cache, or undefined if the cache is empty.
-     * @param {string} type A string which shows whether to return a random key or value in the cache.
+     * @param {String} type A string which shows whether to return a random key or value in the cache.
      * @returns {Cache}
-     * @example cache.random('value')
+     * @example cache.random('value');
      */
     random(type = "value") {
         const arr = this.array(type);
@@ -218,7 +220,7 @@ class Cache extends Map {
      * Deletes multiple elements in the cache from the provided positions and/or keys.
      * @param  {...*} keys 
      * @returns {Cache}
-     * @example cache.bulkdDelete('foo', 'bar', 'hello world')
+     * @example cache.bulkdDelete('foo', 'bar', 'hello world');
      */
     bulkDelete(...keys) {
         keys.forEach((key) => {
@@ -237,9 +239,6 @@ class Cache extends Map {
     }
 	
 	/**
-	 * Creates an exact replica of the cache.
-	 * @returns {Cache} 
-	 * @example const clone = cache.clone();
 	*/
 	}
 
@@ -261,8 +260,9 @@ class Cache extends Map {
 
     /**
      * Returns true if the provided argument is a Cache, or false otherwise.
-     * @param {*} maybeCache 
-     * @returns {boolean}
+     * @param {*} maybeCache The item that may or may not be a cache.
+     * @returns {Boolean}
+     * @example Cache.isCache(cache);
      */
     static isCache(maybeCache) {
         return maybeCache instanceof Cache;
@@ -270,7 +270,8 @@ class Cache extends Map {
 
     /**
      * Returns the number of elements in the cache.
-     * @returns {number}
+     * @returns {Number}
+	 * @example cache.size();
      */
     get size() {
         return super.size;
