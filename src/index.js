@@ -360,6 +360,26 @@ class Cache extends Map {
 		}
 	}
 
+	/**
+	 * Displays the cache as a string.
+	 * @returns {String} The cache as a string.
+	 * @example cache.toString();
+	 */
+    toString() {
+		const arr = [];
+		for (const x of this.entries()) {
+    		arr.push(`${x[0]}: ${x[1]}`);
+		}
+		let str = '{ ';
+		for (const x of arr) {
+    		if (arr[arr.length - 1] === x) {
+        		str = str + x + ' }';
+    		} else {
+       			str = str + x + ', ';
+    		}
+		}
+		return str;
+	}
 
     /**
      * Returns true if the provided argument is a Cache, or false otherwise.
