@@ -258,6 +258,21 @@ class Cache extends Map {
     }
 
     /**
+     * Identical to cache.concat, but modifies the original cache and returns it.
+     * @param  {...Cache} items Additional caches and/or items to add to the end of the cache.
+     * @returns {Cache} Reference to the new cache.
+     * @example cache.join(cache1, [['foo', 'bar']]);
+     */
+    join(...items) {
+        items.forEach(item => {
+            const cache = new Cache(item);
+            cache.forEach((value, key) => {
+                this.set(key, value);
+            });
+        });
+        return this;
+    }
+    /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
     * @returns {Array}

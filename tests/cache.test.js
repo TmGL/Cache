@@ -31,8 +31,8 @@ test('testing array methods', () => {
     expect(cache.some(value => value.includes('v'))).toBeTruthy();
     expect(cache.some(value => value.includes('false'))).toBeFalsy();
 
-    expect(cache.position('key', 'k1')).toStrictEqual(1);
-    expect(cache.position('value', 'v2')).toStrictEqual(2);
+    expect(cache.position('k1', 'key')).toStrictEqual(1);
+    expect(cache.position('v2', 'value')).toStrictEqual(2);
 
     cache.clear();
     cache.set('k1', 'v1');
@@ -45,8 +45,8 @@ test('testing array methods', () => {
     cache.clear();
     init(cache);
 
-    expect(cache.find('key', key => key.includes('1'))).toStrictEqual('k1');
-    expect(cache.find('value', value => value.includes('a'))).toStrictEqual('anomaly');
+    expect(cache.find(key => key.includes('1'), 'key')).toStrictEqual('k1');
+    expect(cache.find(value => value.includes('a'), 'value')).toStrictEqual('anomaly');
 });
 
 test('testing miscellaneous methods', () => {
