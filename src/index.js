@@ -343,6 +343,27 @@ class Cache extends Map {
         const arr = this.array(type);
         return arr.reduceRight(callbackFn, initialValue);
     }
+
+    /**
+     * Creates a new cache from the results of the function executed on every element.
+     * @param {Function} callbackFn The function to execute on each element in the cache.
+     * @param {*} thisArg An object to which the this keyword can refer in the callback function.
+     * @returns {Cache} The new cache.
+     * @example cache.map(x => x[0] * 2);
+     */
+    map(callbackFn, thisArg) {
+        if (thisArg) callbackFn = callbackFn.bind(thisArg);
+        const cache = new Cache();
+        let index = 1
+        for (let x of this) {
+            const toMap = callbackFn(x, index, this);
+            if (toMap !== undefined) {
+                cache.set(toMap[0], toMap[1]);
+            }
+            index++;
+        }
+        return cache;
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
