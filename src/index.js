@@ -33,16 +33,16 @@ class Cache extends Map {
     get(key) {
         return super.get(key);
     }
-	
-	/**
-	 * Returns the key of the given value, or undefined if it doesn't exist.
-	 * @param {*} value The value of the key to get.
-	 * @returns {*} The key of the provided value.
-	 * @example cache.getKey('bar');
-	 */
-	getKey(value) {
-		return this.find(key => this.get(key) === value, 'key');
-	}
+
+    /**
+     * Returns the key of the given value, or undefined if it doesn't exist.
+     * @param {*} value The value of the key to get.
+     * @returns {*} The key of the provided value.
+     * @example cache.getKey('bar');
+     */
+    getKey(value) {
+        return this.find(key => this.get(key) === value, 'key');
+    }
 
     /**
      * Returns true if the specified key exists in the cache, returns false otherwise. 
@@ -186,19 +186,19 @@ class Cache extends Map {
         const arr = this.array(type);
         return arr.find(predicate, thisArg);
     }
-	
-	/**
-	 * Identical to Cache.find, but iterates in the reverse order instead.
+
+    /**
+     * Identical to Cache.find, but iterates in the reverse order instead.
      * @param {Function} predicate The predicate function is called for each element of the cache, until it finds one where the predicate returns true. If the element is found it returns it, otherwise it returns undefined.
-	 * @param {String} type A string which shows whether to look for a key or a value in the cache.
+     * @param {String} type A string which shows whether to look for a key or a value in the cache.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
      * @returns {*}
      * @example cache.findLast(value => value.includes('foo'));
      */
-	findLast(predicate, type = 'value', thisArg = undefined) {
-		const arr = this.array(type);
-		return arr.findLast(predicate, thisArg);
-	}
+    findLast(predicate, type = 'value', thisArg = undefined) {
+        const arr = this.array(type);
+        return arr.findLast(predicate, thisArg);
+    }
 
     /**
      * Returns the position of the provided key or value, or -1 if it isn't found.
@@ -219,26 +219,26 @@ class Cache extends Map {
      */
     reverse() {
         const reversed = Array.from(this.entries()).reverse();
-		this.clear();
-		for (let x of reversed) {
-			this.set(x[0], x[1]);
-		}
-		return this;
+        this.clear();
+        for (let x of reversed) {
+            this.set(x[0], x[1]);
+        }
+        return this;
     }
 
     /**
-	 * Identical to Cache.reverse(), but does not modify the original cache.
-	 * @returns {Cache} A reversed copy of the cache.
-	 * @example cache.hardReverse();
-	 */
-	toReversed() {
-		const reversed = new Cache();
+     * Identical to Cache.reverse(), but does not modify the original cache.
+     * @returns {Cache} A reversed copy of the cache.
+     * @example cache.hardReverse();
+     */
+    toReversed() {
+        const reversed = new Cache();
         const arr = this.array('key').reverse();
         arr.forEach(key => {
             reversed.set(key, this.get(key));
         });
         return reversed;
-	}
+    }
 
     /**
      * Joins the current cache with the others provided, to make a new cache. Does not modify the original cache.
@@ -271,7 +271,7 @@ class Cache extends Map {
             case 'ke':
             case 'k':
                 return Array.from(this.keys());
-				
+
             default:
                 return Array.from(this.values());
         }
@@ -323,63 +323,63 @@ class Cache extends Map {
         });
         return this;
     }
-	
+
     /**
      *  Creates an exact replica of the cache.
      * @returns {Cache} 
-	 * @example const clone = cache.clone()
+     * @example const clone = cache.clone()
      */
     clone() {
         return new Cache(this);
     }
-	
-	/**
-	 * Checks if two caches are equal.
-	 * @param {Cache} cache The item to compare with this cache.
-	 * @param {Boolean} order Whether or not to check the order of the caches are the same; defaults to true.
-	 * @returns {Boolean}
-	 * @example cache.equals(new Cache([['foo', 'bar']]));
-	*/
-	equals(cache, order = true) {
-		if (!Cache.isCache(cache)) return false;
-		if (this.size !== cache.size) return false;
-		if (order) {
-		    const c1 = JSON.stringify(Object.fromEntries(this));
-		    const c2 = JSON.stringify(Object.fromEntries(cache));
-		    if (c1 === c2) {
-		        return true;
-		    } else return false;
-		} else {
-		    const keys = cache.array('k');
-		    keys.forEach((key) => {
-		       this.delete(key); 
-		    });
-		    if (this.size === 0) {
-		        return true;
-		    } else return false;
-		}
-	}
 
-	/**
-	 * Displays the cache as a string.
-	 * @returns {String} The cache as a string.
-	 * @example cache.toString();
-	 */
+    /**
+     * Checks if two caches are equal.
+     * @param {Cache} cache The item to compare with this cache.
+     * @param {Boolean} order Whether or not to check the order of the caches are the same; defaults to true.
+     * @returns {Boolean}
+     * @example cache.equals(new Cache([['foo', 'bar']]));
+    */
+    equals(cache, order = true) {
+        if (!Cache.isCache(cache)) return false;
+        if (this.size !== cache.size) return false;
+        if (order) {
+            const c1 = JSON.stringify(Object.fromEntries(this));
+            const c2 = JSON.stringify(Object.fromEntries(cache));
+            if (c1 === c2) {
+                return true;
+            } else return false;
+        } else {
+            const keys = cache.array('k');
+            keys.forEach((key) => {
+                this.delete(key);
+            });
+            if (this.size === 0) {
+                return true;
+            } else return false;
+        }
+    }
+
+    /**
+     * Displays the cache as a string.
+     * @returns {String} The cache as a string.
+     * @example cache.toString();
+     */
     toString() {
-		const arr = [];
-		for (const x of this.entries()) {
-    		arr.push(`${x[0]}: ${x[1]}`);
-		}
-		let str = '{ ';
-		for (const x of arr) {
-    		if (arr[arr.length - 1] === x) {
-        		str = str + x + ' }';
-    		} else {
-       			str = str + x + ', ';
-    		}
-		}
-		return str;
-	}
+        const arr = [];
+        for (const x of this.entries()) {
+            arr.push(`${x[0]}: ${x[1]}`);
+        }
+        let str = '{ ';
+        for (const x of arr) {
+            if (arr[arr.length - 1] === x) {
+                str = str + x + ' }';
+            } else {
+                str = str + x + ', ';
+            }
+        }
+        return str;
+    }
 
     /**
      * Returns true if the provided argument is a Cache, or false otherwise.
@@ -394,7 +394,7 @@ class Cache extends Map {
     /**
      * Returns the number of elements in the cache.
      * @returns {Number}
-	 * @example cache.size();
+     * @example cache.size();
      */
     get size() {
         return super.size;
