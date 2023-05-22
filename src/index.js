@@ -55,6 +55,16 @@ class Cache extends Map {
     }
 
     /**
+     * Returns true if the specified value exists in the cache, returns false otherwise.
+     * @param {*} value The value to check for in the cache.
+     * @returns {Boolean} Whether or not the value is present.
+     * @example cache.hasValue('bar');
+     */
+    hasValue(value) {
+        return this.find(key => this.get(key) === value, 'k') !== undefined ? true : false;
+    }
+
+    /**
      * Deletes all elements in the cache.
      * @returns {void}
      * @example cache.clear();
