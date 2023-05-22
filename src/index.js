@@ -127,6 +127,22 @@ class Cache extends Map {
     }
 
     /**
+     * Identical to Cache.filter, but modifies the original cache. 
+     * @param {Function} predicate A function that accepts up to three argument and should return a boolean. The predicate function is called for each element in the cache until the predicate returns true.
+     * @param {*} thisArg 
+     * @returns {Cache}
+     * @example cache.hardFilter(value => value.includes('foo'));
+     */
+    hardFilter(predicate, thisArg) {
+        const filtered = this.filter(predicate, thisArg);
+        this.clear();
+        filtered.forEach((value, key) => {
+            this.set(key, value);
+        });
+        return this;
+    }
+
+    /**
      * Determines whether the specified callback function returns true for any element in the cache.
      * @param {Function} predicate A function that accepts up to three argument and should return a boolean. The predicate function is called for each element in the cache until the predicate returns true.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
@@ -166,7 +182,7 @@ class Cache extends Map {
      * @returns {*}
      * @example cache.find(value => value.includes('foo'));
      */
-    find(type = "value", predicate, thisArg = undefined) {
+    find(predicate, type = 'value', thisArg = undefined) {
         const arr = this.array(type);
         return arr.find(predicate, thisArg);
     }
@@ -178,7 +194,7 @@ class Cache extends Map {
      * @returns {Number}
      * @example cache.position('foo', 'value');
      */
-    position(type = "value", searchElement) {
+    position(searchElement, type = 'value') {
         let index = this.array(type).indexOf(searchElement);
         return index === -1 ? index : index + 1;
     }
@@ -204,7 +220,7 @@ class Cache extends Map {
      * @example cache.concat(cache1, [['foo', 'bar']]);
      */
     concat(...items) {
-        const joined = new Cache(this);
+        const joined = this.clone();
         items.forEach((item) => {
             const cache = new Cache(item);
             cache.forEach((value, key) => {
@@ -220,19 +236,15 @@ class Cache extends Map {
     * @returns {Array}
     * @example cache.array('keys');
     */
-    array(type = "value") {
+    array(type = 'value') {
         type = type ? type.toLowerCase() : undefined;
         switch (type) {
-            case "keys":
-            case "key":
-            case "ke":
-            case "k":
+            case 'keys':
+            case 'key':
+            case 'ke':
+            case 'k':
                 return Array.from(this.keys());
-
-            case "values":
-            case "value":
-            case "val":
-            case "v":
+				
             default:
                 return Array.from(this.values());
         }
@@ -244,7 +256,7 @@ class Cache extends Map {
     * @returns {*}
     * @example cache.first('value');
     */
-    first(type = "value") {
+    first(type = 'value') {
         return this.array(type).shift();
     }
 
@@ -254,7 +266,7 @@ class Cache extends Map {
      * @returns {*}
      * @example cache.last('value');
      */
-    last(type = "value") {
+    last(type = 'value') {
         return this.array(type).pop();
     }
 
@@ -264,7 +276,7 @@ class Cache extends Map {
      * @returns {Cache}
      * @example cache.random('value');
      */
-    random(type = "value") {
+    random(type = 'value') {
         const arr = this.array(type);
         if (!arr.length) {
             return undefined;
@@ -298,21 +310,6 @@ class Cache extends Map {
 	*/
 	}
 
-    /**
-     * Does the same thing as Cache.filter, but modifies the original cache. 
-     * @param {Function} predicate 
-     * @param {*} thisArg 
-     * @returns {Cache}
-     * @example cache.hardFilter(value => value.includes('foo'));
-     */
-    hardFilter(predicate, thisArg) {
-        const filtered = this.filter(predicate, thisArg);
-        this.clear();
-        filtered.forEach((value, key) => {
-            this.set(key, value);
-        });
-        return this;
-    }
 
     /**
      * Returns true if the provided argument is a Cache, or false otherwise.
