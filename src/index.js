@@ -317,6 +317,32 @@ class Cache extends Map {
         const key = arr.at(index);
         return Cache.of([key, this.get(key)]);
     }
+
+    /**
+     * The provided callback function executes on each key or value in the cache, accumulating the cache to a single value.
+     * @param {Function} callbackFn The function to run on each element in the cache. The function should have 2 parameters: the accumulator and current value.
+     * @param {String} type Whether to reduce the keys or values.
+     * @param {*} initialValue The first value to be used as the accumulator on the first call.
+     * @returns {Number}
+     * @example cache.reduce((acc, val) => acc + val, 'key', 10)
+       */
+    reduce(callbackFn, type = 'value', initialValue = undefined) {
+        const arr = this.array(type);
+        return arr.reduce(callbackFn, initialValue);
+    }
+
+    /**
+     * Identical to Cache.reduce, but iterates in the reverse order.
+     * @param {Function} callbackFn The function to run on each element in the cache.
+     * @param {String} type Whether to reduce the keys or values.
+     * @param {*} initialValue The first value to be used as the accumulator on the first call.
+     * @returns {Number}
+     * @example cache.reduceRight((acc, val) => acc + val, 'key', 10)
+       */
+    reduceRight(callbackFn, type = 'value', initialValue = undefined) {
+        const arr = this.array(type);
+        return arr.reduceRight(callbackFn, initialValue);
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
