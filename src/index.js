@@ -364,6 +364,24 @@ class Cache extends Map {
         }
         return cache;
     }
+
+    /**
+     * Creates a new cache by removing a portion of the current cache.
+     * @param {Number} start The position to start the extraction.
+     * @param {Number} end The position to end the extraction.
+     * @returns {Cache} The new cache, containing the extracted elements.
+     * @example cache.slice(2, 4)
+     */
+    slice(start, end) {
+        const cache = new Cache();
+        this.forEach((value, key) => {
+            const pos = this.position(key, 'k');
+            if (pos < start || pos > end) {
+                cache.set(key, value);
+            }
+        });
+        return cache;
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
