@@ -33,6 +33,16 @@ class Cache extends Map {
     get(key) {
         return super.get(key);
     }
+	
+	/**
+	 * Returns the key of the given value, or undefined if it doesn't exist.
+	 * @param {*} value The value of the key to get.
+	 * @returns {*} The key of the provided value.
+	 * @example cache.getKey('bar');
+	 */
+	getKey(value) {
+		return this.find(key => this.get(key) === value, 'key');
+	}
 
     /**
      * Returns true if the specified key exists in the cache, returns false otherwise. 
