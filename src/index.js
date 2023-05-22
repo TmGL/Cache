@@ -186,6 +186,19 @@ class Cache extends Map {
         const arr = this.array(type);
         return arr.find(predicate, thisArg);
     }
+	
+	/**
+	 * Identical to Cache.find, but iterates in the reverse order instead.
+     * @param {Function} predicate The predicate function is called for each element of the cache, until it finds one where the predicate returns true. If the element is found it returns it, otherwise it returns undefined.
+	 * @param {String} type A string which shows whether to look for a key or a value in the cache.
+     * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
+     * @returns {*}
+     * @example cache.findLast(value => value.includes('foo'));
+     */
+	findLast(predicate, type = 'value', thisArg = undefined) {
+		const arr = this.array(type);
+		return arr.findLast(predicate, thisArg);
+	}
 
     /**
      * Returns the position of the provided key or value, or -1 if it isn't found.
