@@ -75,6 +75,13 @@ test('testing miscellaneous methods', () => {
 
     expect(Cache.isCache(cache)).toBeTruthy();
     expect(Cache.isCache('this is not a cache')).toBeFalsy();
+
+    // cloning cache
+    cache.clear();
+    init(cache);
+    
+    const cache1 = cache.clone();
+    expect(cache).toStrictEqual(cache1);
 });
 
 /**
