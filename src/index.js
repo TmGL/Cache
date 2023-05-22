@@ -74,6 +74,42 @@ class Cache extends Map {
     }
 
     /**
+     * Returns an iterable of key-value pairs for every entry in the map.
+     * @returns {IterableIterator<[any, any]>} The iterator of the cache.
+     * @example cache.entries();
+     */
+    entries() {
+        return super.entries();
+    }
+
+    /**
+     * Returns an iterable of the keys in the cache.
+     * @returns {IterableIterator<any>}
+     * @example cache.keys();
+     */
+    keys() {
+        return super.keys();
+    }
+
+    /**
+     * Returns an iterable of the values in the cache.
+     * @returns {IterableIterator<any>}
+     * @example cache.values();
+     */
+    values() {
+        return super.values();
+    }
+
+    /**
+     * Executes a provided function once per each key/value pair in the Map, in insertion order.
+     * @param {*} callbackFn The function that accepts up to three arguments; executes for each entry in the cache.
+     * @param {*} thisArg An object to which the this keyword can refer in the callback function.
+     * @returns {void} 
+     */
+    forEach(callbackFn, thisArg) {
+        return super.forEach(callbackFn, thisArg);
+    }
+
     /**
      * Returns the elements of the cache that meet the condition specified in the callback function.
      * @param {Function} predicate  A function that accepts up to three arguments and should return a boolean. The predicate function is called one time for each element in the cache.
