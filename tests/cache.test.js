@@ -82,6 +82,15 @@ test('testing miscellaneous methods', () => {
     
     const cache1 = cache.clone();
     expect(cache).toStrictEqual(cache1);
+
+    // if cache equals another cache
+    const cache2 = cache.clone();
+    cache2.delete('k1');
+    cache2.set('k1', 'v1');
+
+    expect(cache.equals(cache1, true)).toBeTruthy();
+    expect(cache.equals(cache2, true)).toBeFalsy();
+    expect(cache.equals(cache2, false)).toBeTruthy();
 });
 
 /**
