@@ -272,6 +272,16 @@ class Cache extends Map {
         });
         return this;
     }
+
+    /**
+     * Creates a new cache from the given arguments.
+     * @param {*} The elements to create a cache.  
+     * @returns {Cache}
+     * @example Cache.of(['foo', 'bar'], ['hello', 'world']);
+     */
+    static of(...items) {
+        return new Cache(items);
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
