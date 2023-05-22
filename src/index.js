@@ -334,7 +334,30 @@ class Cache extends Map {
     }
 	
 	/**
+	 * Checks if two caches are equal.
+	 * @param {Cache} cache The item to compare with this cache.
+	 * @param {Boolean} order Whether or not to check the order of the caches are the same; defaults to true.
+	 * @returns {Boolean}
+	 * @example cache.equals(new Cache([['foo', 'bar']]));
 	*/
+	equals(cache, order = true) {
+		if (!Cache.isCache(cache)) return false;
+		if (this.size !== cache.size) return false;
+		if (order) {
+		    const c1 = JSON.stringify(Object.fromEntries(this));
+		    const c2 = JSON.stringify(Object.fromEntries(cache));
+		    if (c1 === c2) {
+		        return true;
+		    } else return false;
+		} else {
+		    const keys = cache.array('k');
+		    keys.forEach((key) => {
+		       this.delete(key); 
+		    });
+		    if (this.size === 0) {
+		        return true;
+		    } else return false;
+		}
 	}
 
 
