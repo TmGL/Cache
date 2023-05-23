@@ -181,13 +181,13 @@ class Cache extends Map {
     }
 
     /**
-     * Returns the position of the provided key or value, or -1 if it isn't found.
+     * Returns the position of the provided key or value, or -1 if it isn't found. Please note that as there may be multiple of the same values, the position returned will be the first instance of the value.
      * @param {String} type A string which shows whether to look for a key or a value in the cache.
      * @param {*} searchElement The key or value to locate in the cache.
      * @returns {Number} The position of the element in the cache.
      * @example cache.position('foo', 'value');
      */
-    position(searchElement, type = 'value') {
+    position(searchElement, type = 'key') {
         let index = this.array(type).indexOf(searchElement);
         return index === -1 ? index : index + 1;
     }
@@ -370,7 +370,7 @@ class Cache extends Map {
     splice(start, deleteCount, ...items) {
         const cache = new Cache();
         this.forEach((value, key) => {
-            const pos = this.position(key, 'k');
+            const pos = this.position(key);
             if (pos < start) {
                 cache.set(key, value);
             } else {
@@ -400,7 +400,7 @@ class Cache extends Map {
     fill(newValue, start = 0, end = 0) {
         const cache = new Cache();
         this.forEach((value, key) => {
-            const pos = this.position(key, 'k');
+            const pos = this.position(key);
             if (pos < start || pos > end) {
                 cache.set(key, value);
             } else {
@@ -459,7 +459,7 @@ class Cache extends Map {
     setAt(newKey, newValue, position, remove = false) {
         const cache = new Cache();
         this.forEach((value, key) => {
-            if (this.position(value) === position) {
+            if (this.position(value, 'v') === position) {
                 cache.set(newKey, newValue);
                 if (!remove) {
                     cache.set(key, value);
@@ -485,7 +485,7 @@ class Cache extends Map {
         const cache = new Cache();
         let iterableLength = 0;
         this.forEach((value, key) => {
-            const pos = this.position(value);
+            const pos = this.position(value, 'v');
             if (pos === position) {
                 iterables.forEach(iterable => {
                     for (const element of iterable) {
@@ -525,7 +525,7 @@ class Cache extends Map {
     }
 
     /**
-     * Returns the key of the given value, or undefined if it doesn't exist.
+     * Returns the key of the given value, or undefined if it doesn't exist. Please note that as there may be multiple values that are the same, the key of the first value will be returned.
      * @param {*} value The value of the key to get.
      * @returns {*} The key of the provided value.
      * @example cache.getKey('bar');
