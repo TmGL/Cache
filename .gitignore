@@ -74,3 +74,4 @@ jspm_packages/
 
 # Misc
 /tests/private.test.js
+/tests/old.test.txt
