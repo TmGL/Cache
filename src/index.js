@@ -56,6 +56,44 @@ class Cache extends Map {
     }
 
     /**
+     * Identical to multiSet, but adds the element in a certain position.
+     * @param {Number} position The position to add the elements to.
+     * @param {Boolean} remove Whether or not to delete the elements at the given position. Defaults to false.
+     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
+     * @returns {Cache} The cache object.
+     * @example cache.multiSet(4, false, otherCache, [['foo', 'bar'], ['hello', 'world']]);
+     */
+    multiSetAt(position, remove, ...iterables) {
+        const cache = new Cache();
+        let iterableLength = 0;
+        this.forEach((value, key) => {
+            const pos = this.position(value);
+            if (pos === position) {
+                iterables.forEach(iterable => {
+                    for (const element of iterable) {
+                        cache.set(element[0], element[1]);
+                        iterableLength = iterableLength + 1;
+                    }
+                    if (!remove) {
+                        cache.set(key, value);
+                    }
+                });
+            } else {
+                if (remove) {
+                    if (pos < position || !(pos < position + iterableLength)) {
+                        cache.set(key, value);
+                    } 
+                } else {
+                    cache.set(key, value);
+                }
+            }
+        });
+        this.clear();
+        this.multiSet(cache);
+        return this;
+    }
+
+    /**
     * Removes an element from the cache and returns true if it was removed successfually, or false otherwise. 
     * @param {*} key The key of the element to remove.
     * @returns {Boolean} Returns true if the element was deleted successfully.
