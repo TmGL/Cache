@@ -7,7 +7,7 @@ class Cache extends Map {
     * Sets a new key in the cache, and assigns a value to it.
     * @param {*} key The key to add to the cache.
     * @param {*} value The value of the key.
-    * @returns {Cache} The chache object.
+    * @returns {Cache} The cache object.
     * @example cache.set('foo', 'bar');
     */
     set(key, value) {
