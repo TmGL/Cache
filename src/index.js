@@ -14,84 +14,6 @@ class Cache extends Map {
         return super.set(key, value);
     }
 
-    /**
-     * Sets multiple elements into the cache, using one or more iterables.
-     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
-     * @returns {Cache} The cache object.
-     * @example cache.set(otherCache, [['foo', 'bar'], ['hello', 'world']]);
-     */
-    multiSet(...iterables) {
-        iterables.forEach(iterable => {
-            for (const element of iterable) {
-                this.set(element[0], element[1]);
-            }
-        });
-        return this;
-    }
-
-    /**
-     * Identical to Cache.set, but adds the element in a certain position.
-     * @param {*} newKey The key to add to the cache.
-     * @param {*} newValue The value of the key.
-     * @param {Number} position The position to add the element to. 
-     * @param {Boolean} remove Whether or not to delete the element at the given position, defaults to false.
-     * @returns {Cache} A reference to the cache object.
-     * @example cache.set('foo', 'bar', 3, true);
-     */
-    setAt(newKey, newValue, position, remove = false) {
-        const cache = new Cache();
-        this.forEach((value, key) => {
-            if (this.position(value) === position) {
-                cache.set(newKey, newValue);
-                if (!remove) {
-                    cache.set(key, value);
-                }
-            } else {
-                cache.set(key, value);
-            }
-        });
-        this.clear();
-        this.multiSet(cache);
-        return this;
-    }
-
-    /**
-     * Identical to multiSet, but adds the element in a certain position.
-     * @param {Number} position The position to add the elements to.
-     * @param {Boolean} remove Whether or not to delete the elements at the given position. Defaults to false.
-     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
-     * @returns {Cache} The cache object.
-     * @example cache.multiSet(4, false, otherCache, [['foo', 'bar'], ['hello', 'world']]);
-     */
-    multiSetAt(position, remove, ...iterables) {
-        const cache = new Cache();
-        let iterableLength = 0;
-        this.forEach((value, key) => {
-            const pos = this.position(value);
-            if (pos === position) {
-                iterables.forEach(iterable => {
-                    for (const element of iterable) {
-                        cache.set(element[0], element[1]);
-                        iterableLength = iterableLength + 1;
-                    }
-                    if (!remove) {
-                        cache.set(key, value);
-                    }
-                });
-            } else {
-                if (remove) {
-                    if (pos < position || !(pos < position + iterableLength)) {
-                        cache.set(key, value);
-                    } 
-                } else {
-                    cache.set(key, value);
-                }
-            }
-        });
-        this.clear();
-        this.multiSet(cache);
-        return this;
-    }
 
     /**
     * Removes an element from the cache and returns true if it was removed successfually, or false otherwise. 
@@ -114,16 +36,6 @@ class Cache extends Map {
     }
 
     /**
-     * Returns the key of the given value, or undefined if it doesn't exist.
-     * @param {*} value The value of the key to get.
-     * @returns {*} The key of the provided value.
-     * @example cache.getKey('bar');
-     */
-    getKey(value) {
-        return this.find(key => this.get(key) === value, 'key');
-    }
-
-    /**
      * Returns true if the specified key exists in the cache, returns false otherwise. 
      * @param {*} key The key to check for in the cache.
      * @returns {Boolean} Whether or not the key is present.
@@ -133,15 +45,6 @@ class Cache extends Map {
         return super.has(key);
     }
 
-    /**
-     * Returns true if the specified value exists in the cache, returns false otherwise.
-     * @param {*} value The value to check for in the cache.
-     * @returns {Boolean} Whether or not the value is present.
-     * @example cache.hasValue('bar');
-     */
-    hasValue(value) {
-        return this.find(key => this.get(key) === value, 'k') !== undefined ? true : false;
-    }
 
     /**
      * Deletes all elements in the cache.
@@ -530,6 +433,118 @@ class Cache extends Map {
     }
 
     /**
+     * Sets multiple elements into the cache, using one or more iterables.
+     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
+     * @returns {Cache} The cache object.
+     * @example cache.set(otherCache, [['foo', 'bar'], ['hello', 'world']]);
+     */
+    multiSet(...iterables) {
+        iterables.forEach(iterable => {
+            for (const element of iterable) {
+                this.set(element[0], element[1]);
+            }
+        });
+        return this;
+    }
+
+    /**
+     * Identical to Cache.set, but adds the element in a certain position.
+     * @param {*} newKey The key to add to the cache.
+     * @param {*} newValue The value of the key.
+     * @param {Number} position The position to add the element to. 
+     * @param {Boolean} remove Whether or not to delete the element at the given position, defaults to false.
+     * @returns {Cache} A reference to the cache object.
+     * @example cache.set('foo', 'bar', 3, true);
+     */
+    setAt(newKey, newValue, position, remove = false) {
+        const cache = new Cache();
+        this.forEach((value, key) => {
+            if (this.position(value) === position) {
+                cache.set(newKey, newValue);
+                if (!remove) {
+                    cache.set(key, value);
+                }
+            } else {
+                cache.set(key, value);
+            }
+        });
+        this.clear();
+        this.multiSet(cache);
+        return this;
+    }
+
+    /**
+     * Identical to multiSet, but adds the element in a certain position.
+     * @param {Number} position The position to add the elements to.
+     * @param {Boolean} remove Whether or not to delete the elements at the given position. Defaults to false.
+     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
+     * @returns {Cache} The cache object.
+     * @example cache.multiSet(4, false, otherCache, [['foo', 'bar'], ['hello', 'world']]);
+     */
+    multiSetAt(position, remove, ...iterables) {
+        const cache = new Cache();
+        let iterableLength = 0;
+        this.forEach((value, key) => {
+            const pos = this.position(value);
+            if (pos === position) {
+                iterables.forEach(iterable => {
+                    for (const element of iterable) {
+                        cache.set(element[0], element[1]);
+                        iterableLength = iterableLength + 1;
+                    }
+                    if (!remove) {
+                        cache.set(key, value);
+                    }
+                });
+            } else {
+                if (remove) {
+                    if (pos < position || !(pos < position + iterableLength)) {
+                        cache.set(key, value);
+                    } 
+                } else {
+                    cache.set(key, value);
+                }
+            }
+        });
+        this.clear();
+        this.multiSet(cache);
+        return this;
+    }
+
+    /**
+     * Deletes multiple elements in the cache from the provided positions and/or keys.
+     * @param  {...*} keys 
+     * @returns {Cache}
+     * @example cache.bulkdDelete('foo', 'bar', 'hello world');
+     */
+    bulkDelete(...keys) {
+        keys.forEach((key) => {
+            super.delete(key);
+        });
+        return this;
+    }
+
+    /**
+     * Returns the key of the given value, or undefined if it doesn't exist.
+     * @param {*} value The value of the key to get.
+     * @returns {*} The key of the provided value.
+     * @example cache.getKey('bar');
+     */
+    getKey(value) {
+        return this.find(key => this.get(key) === value, 'key');
+    }
+
+    /**
+     * Returns true if the specified value exists in the cache, returns false otherwise.
+     * @param {*} value The value to check for in the cache.
+     * @returns {Boolean} Whether or not the value is present.
+     * @example cache.hasValue('bar');
+     */
+    hasValue(value) {
+        return this.find(key => this.get(key) === value, 'k') !== undefined ? true : false;
+    }
+
+    /**
     * Returns the first key or value in the cache depending on the argument (default is value), or undefined if the cache is empty.
     * @param {String} type A string which shows whether to return the first key or value in the cache.
     * @returns {*}
@@ -563,18 +578,6 @@ class Cache extends Map {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    /**
-     * Deletes multiple elements in the cache from the provided positions and/or keys.
-     * @param  {...*} keys 
-     * @returns {Cache}
-     * @example cache.bulkdDelete('foo', 'bar', 'hello world');
-     */
-    bulkDelete(...keys) {
-        keys.forEach((key) => {
-            super.delete(key);
-        });
-        return this;
-    }
 
     /**
      *  Creates an exact replica of the cache.
