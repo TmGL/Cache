@@ -449,10 +449,8 @@ class Cache extends Map {
         const cache = new Cache();
         this.forEach((value, key) => {
             const pos = this.position(key, 'k');
-            if (pos > start) {
-                if (!(pos > end)) {
-                    cache.set(key, value);
-                }
+            if (pos > start && !(pos > end)) {
+                cache.set(key, value);
             }
         });
         return cache;
