@@ -492,10 +492,10 @@ class Cache extends Map {
                         cache.set(element[0], element[1]);
                         iterableLength = iterableLength + 1;
                     }
-                    if (!remove) {
-                        cache.set(key, value);
-                    }
                 });
+                if (!remove) {
+                    cache.set(key, value);
+                }
             } else {
                 if (remove) {
                     if (pos < position || !(pos < position + iterableLength)) {
