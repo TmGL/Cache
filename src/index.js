@@ -181,7 +181,7 @@ class Cache extends Map {
 
     /**
      * Executes a provided function once per each key/value pair in the Map, in insertion order.
-     * @param {*} callbackFn The function that accepts up to three arguments; executes for each entry in the cache.
+     * @param {Function} callbackFn The function that accepts up to three arguments; executes for each entry in the cache.
      * @param {*} thisArg An object to which the this keyword can refer in the callback function.
      * @returns {void} 
      */
