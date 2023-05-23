@@ -423,6 +423,8 @@ class Cache extends Map {
      * @param {Number} start The position to start changing the cache.
      * @param {Number} deleteCount How many elements to remove.
      * @param  {...any[]} items The elements to add to the cache.
+     * @returns {Cache} A reference to the cache.
+     * @example cache.splice(1, 3, [['foo', 'bar']], otherCache);
      */
     splice(start, deleteCount, ...items) {
         const cache = new Cache();
