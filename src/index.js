@@ -508,6 +508,7 @@ class Cache extends Map {
         this.multiSet(cache.entries());
         return this;
     }
+
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
