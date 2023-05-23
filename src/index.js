@@ -18,7 +18,7 @@ class Cache extends Map {
      * Sets multiple elements into the cache, using one or more iterables.
      * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
      * @returns {Cache} The cache object.
-     * @example cache.set(otherCache, [['foo', 'bar'], ['hello', 'world]]);
+     * @example cache.set(otherCache, [['foo', 'bar'], ['hello', 'world']]);
      */
     multiSet(...iterables) {
         iterables.forEach(iterable => {
