@@ -15,6 +15,21 @@ class Cache extends Map {
     }
 
     /**
+     * Sets multiple elements into the cache, using one or more iterables.
+     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
+     * @returns {Cache} The cache object.
+     * @example cache.set(otherCache, [['foo', 'bar'], ['hello', 'world]]);
+     */
+    multiSet(...iterables) {
+        iterables.forEach(iterable => {
+            for (const element of iterable) {
+                this.set(element[0], element[1]);
+            }
+        });
+        return this;
+    }
+
+    /**
     * Removes an element from the cache and returns true if it was removed successfually, or false otherwise. 
     * @param {*} key The key of the element to remove.
     * @returns {Boolean} Returns true if the element was deleted successfully.
