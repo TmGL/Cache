@@ -441,7 +441,9 @@ class Cache extends Map {
                 }
             }
         });
-        return cache;
+        this.clear();
+        this.multiSet(cache.entries());
+        return this;
     }
 
     /**
