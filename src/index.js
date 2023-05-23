@@ -33,10 +33,10 @@ class Cache extends Map {
      * Identical to Cache.set, but adds the element in a certain position.
      * @param {*} newKey The key to add to the cache.
      * @param {*} newValue The value of the key.
-     * @param {Number} position The position to add the element to.
-     * @param {Boolean} remove Whether or not to delete the element at the given position.
+     * @param {Number} position The position to add the element to. 
+     * @param {Boolean} remove Whether or not to delete the element at the given position, defaults to false.
      * @returns {Cache} A reference to the cache object.
-     * @example cache.set('foo', 'bar', 3);
+     * @example cache.set('foo', 'bar', 3, true);
      */
     setAt(newKey, newValue, position, remove = false) {
         const cache = new Cache();
