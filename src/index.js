@@ -421,7 +421,10 @@ class Cache extends Map {
     /**
      * Changes all of the values between the given position to a static value. This modifies the orginal cache.
      * @param {*} newValue The value to fill the cache with.
-     * @param {}
+     * @param {Number} start The position to start filling from.
+     * @param {Number} end The position to stop filling.
+     * @returns {Cache} A reference to the cache.
+     * @example cache.fill('bar', 2, 4);
      */
     fill(newValue, start = 0, end = 0) {
         const cache = new Cache();
