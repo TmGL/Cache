@@ -138,7 +138,7 @@ class Cache extends Map {
         this.forEach((value, key) => {
             if (predicate(value, key, this)) filtered.set(key, value);
         });
-        return filtered.size ? filtered : undefined;
+        return filtered;
     }
 
     /**
