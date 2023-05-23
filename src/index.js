@@ -184,7 +184,7 @@ class Cache extends Map {
      * Returns the position of the provided key or value, or -1 if it isn't found.
      * @param {String} type A string which shows whether to look for a key or a value in the cache.
      * @param {*} searchElement The key or value to locate in the cache.
-     * @returns {Number}
+     * @returns {Number} The position of the element in the cache.
      * @example cache.position('foo', 'value');
      */
     position(searchElement, type = 'value') {
@@ -351,7 +351,7 @@ class Cache extends Map {
     slice(start, end = this.size) {
         const cache = new Cache();
         this.forEach((value, key) => {
-            const pos = this.position(key, 'k');
+            const pos = this.position(key);
             if (pos > start && !(pos > end)) {
                 cache.set(key, value);
             }
