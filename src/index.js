@@ -417,6 +417,26 @@ class Cache extends Map {
         });
         return cache;
     }
+
+    /**
+     * Changes all of the values between the given position to a static value. This modifies the orginal cache.
+     * @param {*} newValue The value to fill the cache with.
+     * @param {}
+     */
+    fill(newValue, start = 0, end = 0) {
+        const cache = new Cache();
+        this.forEach((value, key) => {
+            const pos = this.position(key, 'k');
+            if (pos < start || pos > end) {
+                cache.set(key, value);
+            } else {
+                cache.set(key, newValue);
+            }
+        });
+        this.clear();
+        this.multiSet(cache.entries());
+        return this;
+    }
     /**
     * Returns an array of either the key or value, from the provided argument (default is value).
     * @param {String} type A string which shows whether to make the array with the cache's keys, values or a 2D array with both.
