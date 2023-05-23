@@ -30,6 +30,32 @@ class Cache extends Map {
     }
 
     /**
+     * Identical to Cache.set, but adds the element in a certain position.
+     * @param {*} newKey The key to add to the cache.
+     * @param {*} newValue The value of the key.
+     * @param {Number} position The position to add the element to.
+     * @param {Boolean} remove Whether or not to delete the element at the given position.
+     * @returns {Cache} A reference to the cache object.
+     * @example cache.set('foo', 'bar', 3);
+     */
+    setAt(newKey, newValue, position, remove = false) {
+        const cache = new Cache();
+        this.forEach((value, key) => {
+            if (this.position(value) === position) {
+                cache.set(newKey, newValue);
+                if (!remove) {
+                    cache.set(key, value);
+                }
+            } else {
+                cache.set(key, value);
+            }
+        });
+        this.clear();
+        this.multiSet(cache);
+        return this;
+    }
+
+    /**
     * Removes an element from the cache and returns true if it was removed successfually, or false otherwise. 
     * @param {*} key The key of the element to remove.
     * @returns {Boolean} Returns true if the element was deleted successfully.
