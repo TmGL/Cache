@@ -151,9 +151,7 @@ class Cache extends Map {
     hardFilter(predicate, thisArg) {
         const filtered = this.filter(predicate, thisArg);
         this.clear();
-        filtered.forEach((value, key) => {
-            this.set(key, value);
-        });
+        this.multiSet(filtered?.entries());
         return this;
     }
 
@@ -265,9 +263,7 @@ class Cache extends Map {
         const joined = this.clone();
         items.forEach((item) => {
             const cache = new Cache(item);
-            cache.forEach((value, key) => {
-                joined.set(key, value);
-            });
+            joined.multiSet(cache);
         });
         return joined;
     }
@@ -281,9 +277,7 @@ class Cache extends Map {
     join(...items) {
         items.forEach(item => {
             const cache = new Cache(item);
-            cache.forEach((value, key) => {
-                this.set(key, value);
-            });
+            this.multiSet(cache);
         });
         return this;
     }
