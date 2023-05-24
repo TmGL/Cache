@@ -118,7 +118,7 @@ class Cache extends Map {
     hardFilter(predicate, thisArg) {
         const filtered = this.filter(predicate, thisArg);
         this.clear();
-        this.multiSet(filtered?.entries());
+        this.multiSet(filtered);
         return this;
     }
 
