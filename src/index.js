@@ -623,7 +623,7 @@ class Cache extends Map {
     toString() {
         const arr = [];
         for (const x of this.entries()) {
-            arr.push(`${x[0]}: ${x[1]}`);
+            arr.push(`${JSON.stringify(x[0])}: ${JSON.stringify(x[1])}`);
         }
         let str = '{ ';
         for (const x of arr) {
