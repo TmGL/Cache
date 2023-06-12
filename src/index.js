@@ -374,8 +374,10 @@ class Cache extends Map {
                 cache.set(key, value);
             } else {
                 if (items.length !== 0) {
-                    for (const x of items) {
-                        cache.set(x[0], x[1]);
+                    for (const iterable of items) {
+                        for (const x of iterable) {
+                            cache.set(x[0], x[1]);
+                        }
                     }
                 }
                 if (pos + items.length > cache.size + deleteCount) {
