@@ -479,7 +479,7 @@ class Cache extends Map {
      * Identical to multiSet, but adds the element in a certain position.
      * @param {Number} position The position to add the elements to.
      * @param {Boolean} remove Whether or not to delete the elements at the given position. Defaults to false.
-     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
+     * @param {...IterableIterator<[any, any]>} iterables The elements to add to the cache.
      * @returns {Cache} The cache object.
      * @example cache.multiSet(4, false, otherCache, [['foo', 'bar'], ['hello', 'world']]);
      */
