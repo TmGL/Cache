@@ -301,9 +301,9 @@ class Cache extends Map {
      * @returns {Number}
      * @example cache.reduce((acc, val) => acc + val, 'key', 10)
        */
-    reduce(callbackFn, type = 'value', initialValue = undefined) {
+    reduce(callbackFn, type = 'value', initialValue) {
         const arr = this.array(type);
-        return arr.reduce(callbackFn, initialValue);
+        return initialValue ? arr.reduce(callbackFn, initialValue) : arr.reduce(callbackFn);
     }
 
     /**
