@@ -156,7 +156,7 @@ class Cache extends Map {
     /**
      * Returns the value of the first element in the cache where the callback function returns true, and undefined otherwise.
      * @param {Function} predicate The predicate function is called for each element of the cache, until it finds one where the predicate returns true. If the element is found, it returns it. Otherwise, it returns undefined.
-     * @param {String} type A string which shows whether to look for a key or a value in the cache.
+     * @param {String} type A string which shows whether to look for a key, value or both.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
      * @returns {*}
      * @example cache.find(value => value.includes('foo'));
@@ -169,7 +169,7 @@ class Cache extends Map {
     /**
      * Identical to Cache.find, but iterates in the reverse order instead.
      * @param {Function} predicate The predicate function is called for each element of the cache, until it finds one where the predicate returns true. If the element is found it returns it, otherwise it returns undefined.
-     * @param {String} type A string which shows whether to look for a key or a value in the cache.
+     * @param {String} type A string which shows whether to look for a key, value or both.
      * @param {*} thisArg An object to which the this keyword can refer in the predicate function.
      * @returns {*}
      * @example cache.findLast(value => value.includes('foo'));
@@ -181,7 +181,7 @@ class Cache extends Map {
 
     /**
      * Returns the position of the provided key or value, or -1 if it isn't found. Please note that as there may be multiple of the same values, the position returned will be the first instance of the value.
-     * @param {String} type A string which shows whether to look for a key or a value in the cache.
+     * @param {String} type A string which shows whether to look for a key, value or both.
      * @param {*} searchElement The key or value to locate in the cache.
      * @returns {Number} The position of the element in the cache.
      * @example cache.position('foo', 'value');
@@ -296,7 +296,7 @@ class Cache extends Map {
     /**
      * The provided callback function executes on each key or value in the cache, accumulating the cache to a single value.
      * @param {Function} callbackFn The function to run on each element in the cache. The function should have 2 parameters: the accumulator and current value.
-     * @param {String} type Whether to reduce the keys or values.
+     * @param {String} type Whether to reduce the keys, values or both.
      * @param {*} initialValue The first value to be used as the accumulator on the first call.
      * @returns {Number}
      * @example cache.reduce((acc, val) => acc + val, 'key', 10)
@@ -309,7 +309,7 @@ class Cache extends Map {
     /**
      * Identical to Cache.reduce, but iterates in the reverse order.
      * @param {Function} callbackFn The function to run on each element in the cache.
-     * @param {String} type Whether to reduce the keys or values.
+     * @param {String} type Whether to reduce the keys, values or both.
      * @param {*} initialValue The first value to be used as the accumulator on the first call.
      * @returns {Number}
      * @example cache.reduceRight((acc, val) => acc + val, 'key', 10)
@@ -557,7 +557,7 @@ class Cache extends Map {
 
     /**
     * Returns the first key or value in the cache depending on the argument (default is value), or undefined if the cache is empty.
-    * @param {String} type A string which shows whether to return the first key or value in the cache.
+    * @param {String} type A string which shows whether to return the first key, value or both.
     * @returns {*}
     * @example cache.first('value');
     */
@@ -567,7 +567,7 @@ class Cache extends Map {
 
     /**
      * Returns the last key or value in the cache depending on the argument (default is value), or undefined if the cache is empty.
-     * @param {String} type A string which shows whether to return the last key or value in the cache.
+     * @param {String} type A string which shows whether to return the last key, value or both.
      * @returns {*}
      * @example cache.last('value');
      */
@@ -577,7 +577,7 @@ class Cache extends Map {
 
     /**
      * Returns a random key or value depending on the argument (default is value) from the cache, or undefined if the cache is empty.
-     * @param {String} type A string which shows whether to return a random key or value in the cache.
+     * @param {String} type A string which shows whether to return a random key, value or both.
      * @returns {Cache}
      * @example cache.random('value');
      */
