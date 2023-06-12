@@ -197,7 +197,7 @@ class Cache extends Map {
      * @example cache.reverse();
      */
     reverse() {
-        const reversed = Array.from(this.entries()).reverse();
+        const reversed = this.array('both').reverse();
         this.clear();
         for (let x of reversed) {
             this.set(x[0], x[1]);
