@@ -545,6 +545,18 @@ class Cache extends Map {
     }
 
     /**
+     * Clears all the elements in the cache, and replaces them with new ones.
+     * @param {...IterableIterator<any, any>} iterables The elements to add to the cache.
+     * @returns {Cache} A reference to the cache.
+     * @example cache.reset(otherCache, [['foo', 'bar']]);
+     */
+    reset(...iterables) {
+        this.clear();
+        this.multiSet(...iterables);
+        return this;
+    }
+
+    /**
     * Returns the first key or value in the cache depending on the argument (default is value), or undefined if the cache is empty.
     * @param {String} type A string which shows whether to return the first key or value in the cache.
     * @returns {*}
