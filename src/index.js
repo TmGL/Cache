@@ -424,6 +424,10 @@ class Cache extends Map {
             case 'k':
                 return Array.from(this.keys());
 
+            case 'both':
+            case 'b':
+                return Array.from(this.entries());
+
             default:
                 return Array.from(this.values());
         }
