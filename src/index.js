@@ -435,16 +435,16 @@ class Cache extends Map {
 
     /**
      * Sets multiple elements into the cache, using one or more iterables.
-     * @param {IterableIterator<[any, any]>} iterables The elements to add to the cache.
+     * @param {...IterableIterator<[any, any]>} iterables The elements to add to the cache.
      * @returns {Cache} The cache object.
      * @example cache.set(otherCache, [['foo', 'bar'], ['hello', 'world']]);
      */
     multiSet(...iterables) {
-        iterables.forEach(iterable => {
+        for (const iterable of iterables) {
             for (const element of iterable) {
                 this.set(element[0], element[1]);
             }
-        });
+        }
         return this;
     }
 
