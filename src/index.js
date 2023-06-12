@@ -117,8 +117,7 @@ class Cache extends Map {
      */
     hardFilter(predicate, thisArg) {
         const filtered = this.filter(predicate, thisArg);
-        this.clear();
-        this.multiSet(filtered);
+        this.reset(filtered);
         return this;
     }
 
@@ -384,8 +383,7 @@ class Cache extends Map {
                 }
             }
         });
-        this.clear();
-        this.multiSet(cache.entries());
+        this.reset(cache);
         return this;
     }
 
@@ -407,8 +405,7 @@ class Cache extends Map {
                 cache.set(key, newValue);
             }
         });
-        this.clear();
-        this.multiSet(cache.entries());
+        this.reset(cache);
         return this;
     }
 
@@ -468,8 +465,7 @@ class Cache extends Map {
                 cache.set(key, value);
             }
         });
-        this.clear();
-        this.multiSet(cache);
+        this.reset(cache);
         return this;
     }
 
@@ -506,8 +502,7 @@ class Cache extends Map {
                 }
             }
         });
-        this.clear();
-        this.multiSet(cache);
+        this.reset(cache);
         return this;
     }
 
