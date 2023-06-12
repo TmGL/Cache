@@ -362,7 +362,7 @@ class Cache extends Map {
      * Changes a portion of the cache by removing or replacing existing elements.
      * @param {Number} start The position to start changing the cache.
      * @param {Number} deleteCount How many elements to remove.
-     * @param  {...any[]} items The elements to add to the cache.
+     * @param  {...IterableIterator<any, any>} items The elements to add to the cache.
      * @returns {Cache} A reference to the cache.
      * @example cache.splice(1, 3, [['foo', 'bar']], otherCache);
      */
