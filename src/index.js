@@ -284,13 +284,13 @@ class Cache extends Map {
     /**
      * Determines the key at the specified index of the cache, returns a new cache of the key and value.
      * @param {Number} index The index of the key.
-     * @returns {Cache} A new cache of the key and value.
+     * @param {String} type Whether to return a key, value or both.
+     * @returns {*} The key or value at the index.
      * @example cache.at(3);
      */
-    at(index) {
-        const arr = this.array();
-        const key = arr.at(index);
-        return Cache.of([key, this.get(key)]);
+    at(index, type = 'value') {
+        const arr = this.array(type);
+        return arr.at(index - 1);
     }
 
     /**
