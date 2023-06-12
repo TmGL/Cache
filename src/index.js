@@ -341,7 +341,7 @@ class Cache extends Map {
     }
 
     /**
-     * Creates a new cache by removing a portion of the current cache.
+     * Creates a new cache by selecting a portion of the current cache.
      * @param {Number} start The position to start the extraction.
      * @param {Number} end The position to end the extraction.
      * @returns {Cache} The new cache, containing the extracted elements.
