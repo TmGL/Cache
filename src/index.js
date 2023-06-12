@@ -500,7 +500,7 @@ class Cache extends Map {
                 if (remove) {
                     if (pos < position || !(pos < position + iterableLength)) {
                         cache.set(key, value);
-                    } 
+                    }
                 } else {
                     cache.set(key, value);
                 }
