@@ -595,7 +595,7 @@ class Cache extends Map {
     /**
      *  Creates an exact replica of the cache.
      * @returns {Cache} 
-     * @example const clone = cache.clone()
+     * @example const clone = cache.clone();
      */
     clone() {
         return new Cache(this);
