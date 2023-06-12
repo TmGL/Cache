@@ -175,8 +175,8 @@ class Cache extends Map {
      * @example cache.findLast(value => value.includes('foo'));
      */
     findLast(predicate, type = 'value', thisArg = undefined) {
-        const arr = this.array(type);
-        return arr.findLast(predicate, thisArg);
+        const arr = this.array(type).reverse();
+        return arr.find(predicate, thisArg);
     }
 
     /**
